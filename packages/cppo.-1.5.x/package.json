@@ -1,0 +1,36 @@
+{
+  "build": [
+    [
+      "sh",
+      "-c",
+      "(make clean || true)"
+    ],
+    [
+      "make",
+      "all"
+    ],
+    [
+      "make",
+      "opt"
+    ],
+    [
+      "make",
+      "ocamlbuild"
+    ],
+    [
+      "make",
+      "LIBDIR=$cur__lib",
+      "install-lib"
+    ],
+    [
+      "make",
+      "BINDIR=$cur__bin",
+      "install-bin"
+    ],
+    [
+      "sh",
+      "-c",
+      "(opam-installer --prefix=$cur__install || true)"
+    ]
+  ]
+}

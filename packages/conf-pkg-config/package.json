@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "yarn-pkg-config": "reasonml/yarn-pkg-config#esy"
+  }
+}
