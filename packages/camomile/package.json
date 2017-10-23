@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "@opam-alpha/camlp4": "*"
+    "@opam/camlp4": "*"
   }
 }
