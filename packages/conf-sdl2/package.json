@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@esy-ocaml/sdl2": "esy-ocaml/SDL-mirror#esy-2.0.5"
+  }
+}
