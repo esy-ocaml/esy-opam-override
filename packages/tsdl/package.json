@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@esy-ocaml/fauxpam": "esy-ocaml/fauxpam"
+  }
+}
