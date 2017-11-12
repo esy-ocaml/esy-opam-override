@@ -6,6 +6,6 @@
     }
   },
   "dependencies": {
-    "libffi": "reasonml/libffi#esy"
+    "libffi": "esy-ocaml/libffi#esy"
   }
 }
