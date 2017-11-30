@@ -4,7 +4,8 @@
       "cc",
       "-c",
       "$CFLAGS",
-      "-I/usr/local/include test.c"
+      "-I/usr/local/include",
+      "test.c"
     ]
   ]
 }
