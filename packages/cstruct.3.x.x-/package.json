@@ -1,7 +1,7 @@
 {
   "exportedEnv": {
     "CAML_LD_LIBRARY_PATH": {
-      "val": "$opam__slash__cstruct__lib/stublibs:$CAML_LD_LIBRARY_PATH",
+      "val": "#{@opam/cstruct.lib / 'stublibs' : $CAML_LD_LIBRARY_PATH}",
       "scope": "global"
     }
   }

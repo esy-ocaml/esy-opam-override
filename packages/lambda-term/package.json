@@ -1,7 +1,7 @@
 {
   "exportedEnv": {
     "CAML_LD_LIBRARY_PATH": {
-      "val": "$opam__slash__lambda_term__lib/stublibs:$CAML_LD_LIBRARY_PATH",
+      "val": "#{@opam/lambda-term.lib / 'stublibs' : $CAML_LD_LIBRARY_PATH}",
       "scope": "global"
     }
   }
