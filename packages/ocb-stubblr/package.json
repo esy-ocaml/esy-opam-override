@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@esy-ocaml/nopam": "esy-ocaml/nopam#v1.0.0"
+  }
+}
