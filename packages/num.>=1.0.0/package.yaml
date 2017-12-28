@@ -42,6 +42,6 @@ opam:
       -ifeq "$(SUPPORTS_SHARED_LIBRARIES)" "true"
       -	cd $(STDLIBDIR)/stublibs && rm -f $(TOINSTALL_STUBS) 
       -endif
-        $(OCAMLFIND) remove num
+       	$(OCAMLFIND) remove num
        
        clean:
