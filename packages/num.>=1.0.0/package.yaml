@@ -2,6 +2,10 @@ build:
 - make
 install:
 - [make, install]
+exportedEnv:
+  CAML_LD_LIBRARY_PATH:
+    val: "#{@opam/num.install / 'lib' / 'num'}"
+    scope: global
 opam:
   patches:
   - name: fix-meta.patch
