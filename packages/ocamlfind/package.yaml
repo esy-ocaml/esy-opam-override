@@ -11,6 +11,8 @@ exportedEnv:
     val: "#{@opam/ocamlfind.install / 'lib' / 'ocaml'}"
     scope: global
 opam:
+  url: "http://download2.camlcity.org/download/findlib-1.7.3.tar.gz"
+  checksum: "0c3f052b02e9249f3bc9fe3ad6f69de0"
   files:
   - name: _esy/build
     content: |
