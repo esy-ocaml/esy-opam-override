@@ -11,8 +11,6 @@ exportedEnv:
     val: "#{@opam/ocamlfind.install / 'lib' / 'ocaml'}"
     scope: global
 opam:
-  url: "https://github.com/esy-ocaml/ocamlfind/archive/10eb35a79c2579c1d481cdf7741bb2e190c57a4c.zip"
-  checksum: "15c9046b1b47488f70c874372bc7d9c7"
   files:
   - name: _esy/build
     content: |
