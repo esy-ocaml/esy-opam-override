@@ -1,0 +1,33 @@
+{
+  "build": [
+    [
+      "ocaml",
+      "setup.ml",
+      "-configure",
+      "--enable-syntax",
+      "--enable-ppx",
+      "--prefix",
+      "$cur__install"
+    ],
+    [
+      "ocaml",
+      "setup.ml",
+      "-build"
+    ],
+    [
+      "ocaml",
+      "setup.ml",
+      "-install"
+    ],
+    [
+      "sh",
+      "-c",
+      "(esy-installer || true)"
+    ]
+  ],
+  "dependencies": {
+    "@opam/camlp4": "*",
+    "@opam/markup": "*",
+    "@opam/ppx_tools_versioned": "*"
+  }
+}
