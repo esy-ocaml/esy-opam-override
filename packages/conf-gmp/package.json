@@ -3,7 +3,7 @@
     [
       "cc",
       "-c",
-      "$CFLAGS",
+      "${CFLAGS:--g}",
       "-I/usr/local/include",
       "test.c"
     ]
