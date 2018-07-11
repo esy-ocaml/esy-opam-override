@@ -1,9 +1,10 @@
 # esy-opam-override
 
 Esy allows to use any opam package published in opam repository by automatically
-converting from `opam` format to `package.json` format. Unfortunately this
-automatic conversion doesn't work in 100% of cases. This is why we maintain a
-collection of "fixups" for opam packages.
+converting from `opam` format to `package.json` format.
+
+Unfortunately this automatic conversion doesn't work in 100% of cases. This is
+why we maintain a collection of "fixups" for opam packages.
 
 ## Repository structure
 
