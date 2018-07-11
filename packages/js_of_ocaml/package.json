@@ -1,8 +1,0 @@
-{
-  "exportedEnv": {
-    "CAML_LD_LIBRARY_PATH": {
-      "val": "#{@opam/js_of_ocaml.stublibs : @opam/js_of_ocaml.lib / 'stublibs' : $CAML_LD_LIBRARY_PATH}",
-      "scope": "global"
-    }
-  }
-}

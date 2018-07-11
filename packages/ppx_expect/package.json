@@ -1,8 +1,0 @@
-{
-  "exportedEnv": {
-    "CAML_LD_LIBRARY_PATH": {
-      "val": "#{@opam/ppx_expect.lib / 'stublibs' : $CAML_LD_LIBRARY_PATH}",
-      "scope": "global"
-    }
-  }
-}

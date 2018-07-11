@@ -1,23 +1,5 @@
 {
   "dependencies": {
     "@opam/ocamlfind": "*"
-  },
-  "build": [
-    [
-      "ocaml",
-      "bootstrap.ml"
-    ],
-    [
-      "./boot.exe",
-      "--subst"
-    ],
-    [
-      "./boot.exe",
-      "-j",
-      "4"
-    ],
-    [
-      "esy-installer"
-    ]
-  ]
+  }
 }

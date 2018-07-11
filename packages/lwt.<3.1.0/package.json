@@ -1,8 +1,0 @@
-{
-  "exportedEnv": {
-    "CAML_LD_LIBRARY_PATH": {
-      "val": "#{@opam/lwt.lib / 'lwt' : $CAML_LD_LIBRARY_PATH}",
-      "scope": "global"
-    }
-  }
-}
