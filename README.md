@@ -13,15 +13,35 @@ packages
 └── PACKAGE_NAME.PACKAGE_VERSION_PATTERN
     ├── ...
     └── ocaml_VERSION_CONSTRAINT
+        ├── files (optional)
         └── package.json
 ```
 
-## How to contribute
-
-TODO
-
 ## Esy override specification
 
+Each `package.json` should contain a single JSON object whuch conforms to the
+type `OpamOverride` described below:
+
 ```
-TODO
+type OpamOverride = {
+  exportedEnv?: {[name: string]: EnvExport},
+  dependencies?: {[name: string]: string},
+  build?: string[],
+  install?: string[],
+  opam?: {
+    url: string,
+    checksum: md5checksum
+  }
+}
+
+type md5checksum = string
+
+type EnvExport = {
+  val: string,
+  scope?: 'global' | 'local'
+}
 ```
+
+All items within the `files` directory will be copied over to the package
+installation root.
+
