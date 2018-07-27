@@ -1,0 +1,7 @@
+{
+  "build": [
+    "sed -i'' -e 's/OCAMLFIND_LDCONF=.*/OCAMLFIND_LDCONF=\"ignore\"/g' ./configure",
+    "#{os == 'darwin' ? './osx-configure.sh' : './configure --prefix'} #{self.install}",
+    "make"
+  ]
+}
