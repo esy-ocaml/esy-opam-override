@@ -1,6 +1,11 @@
 {
   "build": [
     [
+      "bash",
+      "-c",
+      "patch -p1 < _esy/merlin-extend-winfix.patch"
+    ],
+    [
       "make"
     ]
   ]
