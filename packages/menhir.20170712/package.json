@@ -3,7 +3,7 @@
     [
       "bash",
       "-c",
-      "patch -p1 < _esy/merlin-20170712.patch"
+      "patch -p1 < _esy/menhir-20170712.patch"
     ],
     [
       "make",
