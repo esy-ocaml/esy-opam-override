@@ -1,6 +1,7 @@
 --- ./extend_helper.ml
 +++ ./extend_helper.ml
-@@ -1,12 +1,6 @@
+@@ -1,13 +1,6 @@
+-(*pp cppo -V OCAML:`ocamlc -version` *)
  open Parsetree
  open Extend_protocol
  
@@ -13,7 +14,7 @@
  (** Default implementation for [Reader_def.print_outcome] using
      [Oprint] from compiler-libs *)
  let print_outcome_using_oprint ppf = function
-@@ -27,7 +21,7 @@
+@@ -28,7 +21,7 @@
        pstr_loc = Location.none;
        pstr_desc = Pstr_eval ({
            pexp_loc = Location.none;
@@ -22,7 +23,7 @@
            pexp_attributes = [];
          }, []);
      }]
-@@ -111,7 +105,7 @@
+@@ -112,7 +105,7 @@
    let msg = match payload with
      | PStr [{
          pstr_desc = Pstr_eval ({
