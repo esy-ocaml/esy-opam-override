@@ -13,7 +13,7 @@
       "USE_OCAMLFIND=true",
       "docdir=#{self.doc}/menhir",
       "libdir=#{self.lib}/menhir",
-      "mandir=#{self.man}/man1",
+      "mandir=#{self.man}/man1"
     ]
   ]
 }
