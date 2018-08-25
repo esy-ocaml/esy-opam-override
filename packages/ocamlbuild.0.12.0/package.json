@@ -10,12 +10,12 @@
       "OCAMLBUILD_LIBDIR=#{self.lib}",
       "OCAMLBUILD_MANDIR=#{self.man}",
       "OCAMLBUILD_NATIVE=true",
-      "OCAMLBUILD_NATIVE_TOOLS=true",
+      "OCAMLBUILD_NATIVE_TOOLS=true"
     ],
     [
       "cp",
       "#{self.bin}/ocamlbuild",
-      "#{self.bin}/ocamlbuild.exe",
+      "#{self.bin}/ocamlbuild.exe"
     ],
     [
       "make",
