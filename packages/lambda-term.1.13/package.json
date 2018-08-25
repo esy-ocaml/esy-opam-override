@@ -1,0 +1,17 @@
+{
+  "build": [
+    [
+      "bash",
+      "-c",
+      "patch -p1 < _esy/lambda-term-1.13.patch"
+    ],
+    [
+      "jbuilder",
+      "build",
+      "-p",
+      "lambda-term",
+      "-j",
+      "4"
+    ]
+  ]
+}
