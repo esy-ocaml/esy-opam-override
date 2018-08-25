@@ -17,11 +17,6 @@
       "check-if-preinstalled",
       "all",
       "opam-install"
-    ],
-    [
-      "cp",
-      "#{self.bin}/ocamlbuild",
-      "#{self.bin}/ocamlbuild.exe"
     ]
   ]
 }
