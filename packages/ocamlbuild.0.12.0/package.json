@@ -11,7 +11,11 @@
       "OCAMLBUILD_MANDIR=#{self.man}",
       "OCAMLBUILD_NATIVE=true",
       "OCAMLBUILD_NATIVE_TOOLS=true",
-      "EXE=#{os == 'windows' ? '.exe' : ''}"
+    ],
+    [
+      "cp",
+      "#{self.bin}/ocamlbuild",
+      "#{self.bin}/ocamlbuild.exe",
     ],
     [
       "make",
