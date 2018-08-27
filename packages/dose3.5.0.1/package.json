@@ -13,8 +13,9 @@
       "printconf"
     ],
     [
-      "make",
-      "#{os == 'windows' ? '' : 'libs'}"
+      "bash",
+      "-c",
+      "#{os == 'windows' ? 'make' : 'make libs'}"
     ]
   ]
 }
