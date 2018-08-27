@@ -30,7 +30,7 @@
     ],
     [
       "make",
-      "printconf",
+      "printconf"
     ],
     [
       "make",
