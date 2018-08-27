@@ -3,7 +3,7 @@
     [
       "bash",
       "-c",
-      "patch -p1 < _esy/lambda-term-1.13.patch"
+      "#{os == 'windows' ? 'patch -p1 < _esy/lambda-term-1.13.patch' : 'true'}"
     ],
     [
       "jbuilder",
