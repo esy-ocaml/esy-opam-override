@@ -15,7 +15,8 @@
     [
       "make",
       "check-if-preinstalled",
-      "all"
+      "all",
+      "install-bin"
     ]
   ]
 }
