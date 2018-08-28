@@ -1,0 +1,17 @@
+{
+  "build": [
+    [
+      "bash",
+      "-c",
+      "#{os == 'windows' ? 'patch -p1 < _esy/ocp-build-1.99.20-beta.patch' : 'true'}"
+    ],
+    [
+      "./configure",
+      "--prefix",
+      "#{self.install}"
+    ],
+    [
+      "make"
+    ]
+  ]
+}
