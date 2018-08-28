@@ -16,7 +16,7 @@
       "make",
       "check-if-preinstalled",
       "all",
-      "install-bin"
+      "#{os == 'windows' ? 'install-bin" : 'opam-install'}"
     ]
   ]
 }
