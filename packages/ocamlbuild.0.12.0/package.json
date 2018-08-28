@@ -15,8 +15,7 @@
     [
       "make",
       "check-if-preinstalled",
-      "all",
-      "opam-install"
+      "all"
     ]
   ]
 }
