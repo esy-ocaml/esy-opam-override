@@ -1,0 +1,20 @@
+{
+  "build": [
+    [
+      "bash",
+      "-c",
+      "#{os == 'windows' ? 'patch -p1 < _esy/ppx_deriving_yojson-3.1.patch' : 'true'}"
+    ],
+    [
+      "bash",
+      "-c",
+      "#{os == 'windows' ? 'patch -p1 < _esy/patch-topkg-ppx_deriving_yojson.3.1' : 'true'}"
+    ],
+    [
+      "ocaml",
+      "pkg/build.ml",
+      "native=true",
+      "native-dynlink=true"
+    ]
+  ]
+}
