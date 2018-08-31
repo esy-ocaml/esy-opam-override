@@ -1,6 +1,11 @@
 {
   "build": [
     [
+      "bash",
+      "-c",
+      "#{os == 'windows' ? 'patch -p1 < _esy/ocamlbuild-0.12.0.patch' ? 'true'}"
+    ],
+    [
       "make",
       "-f",
       "configure.make",
