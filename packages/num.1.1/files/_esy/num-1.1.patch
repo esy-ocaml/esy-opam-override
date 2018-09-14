@@ -7,8 +7,8 @@
  ifeq "$(SUPPORTS_SHARED_LIBRARIES)" "true"
 -TOINSTALL_STUBS=dllnums.$(SO)
 +TOINSTALL_STUBS=dllnums$(EXT_DLL)
- 
- install:
+ else
+ TOINSTALL_STUBS=
 @@ -112,7 +112,7 @@
  endif
  
