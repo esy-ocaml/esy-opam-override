@@ -4,13 +4,13 @@
  ifeq "$(NATDYNLINK)" "true"
  TOINSTALL+=nums.cmxs
  endif
+ ifeq "$(SUPPORTS_SHARED_LIBRARIES)" "true"
 -TOINSTALL_STUBS=dllnums.$(SO)
 +TOINSTALL_STUBS=dllnums$(EXT_DLL)
  
  install:
- 	$(OCAMLFIND) install num META
-@@ -97,7 +97,7 @@
- 	$(OCAMLFIND) remove num
+@@ -112,7 +112,7 @@
+ endif
  
  clean:
 -	rm -f *.cm[ioxta] *.cmx[as] *.cmti *.$(O) *.$(A) *.$(SO)
