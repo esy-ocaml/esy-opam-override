@@ -25,7 +25,7 @@ const getRelevantPackagesToTest = () => {
 }
 
 const mkdirTemp = (packageFolder) => {
-    const p = path.join(os.tmpdir(), crypto.randomBytes(8).toString("hex")); 
+    const p = path.join(os.tmpdir(), packageFolder + crypto.randomBytes(4).toString("hex")); 
     fs.mkdirSync(p);
     return p;
 }
@@ -39,6 +39,7 @@ const getNameAndVersionForPackage = (packageFolder) => {
 };
 
 const prefixPath = mkdirTemp("ESY__PREFIX");
+const cachePath = mkdirTemp("ESYI__CACHE");
 
 const testPackage = (packageFolder) => {
     const pkgInfo = getNameAndVersionForPackage(packageFolder);
@@ -47,6 +48,7 @@ const testPackage = (packageFolder) => {
     const testFolder = mkdirTemp(packageFolder);    
     console.log("   - Package build folder: " + testFolder);
     console.log("   - Prefix path: " + prefixPath);
+    console.log("   - Cache path: " + cachePath);
 
     const esy = (command) => {
         return execSync(`esy ${command}`, {
@@ -55,6 +57,7 @@ const testPackage = (packageFolder) => {
                 ...process.env,
                 ESY__PREFIX: prefixPath,
                 ESYI__OPAM_OVERRIDE: __dirname,
+                ESYI__CACHE: cachePath,
             }
         });
     };
