@@ -3,7 +3,7 @@
     [
       "bash",
       "-c",
-      "#{os == 'windows' ? 'patch -p1 < _esy/dose3-5.0.1.patch' : 'true'}"
+      "#{os == 'windows' ? 'patch -p1 < dose3-5.0.1.patch' : 'true'}"
     ],
     [
       "./configure"

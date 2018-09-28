@@ -3,7 +3,7 @@
     [
       "bash",
       "-c",
-      "#{os == 'windows' ? 'patch -p1 < _esy/merlin-extend-winfix.patch' : 'true'}"
+      "#{os == 'windows' ? 'patch -p1 < merlin-extend-winfix.patch' : 'true'}"
     ],
     [
       "make"

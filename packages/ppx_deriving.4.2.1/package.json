@@ -3,7 +3,7 @@
     [
       "bash",
       "-c",
-      "#{os == 'windows' ? 'patch -p1 < _esy/ppx_deriving-4.2.1.patch' : 'true'}"
+      "#{os == 'windows' ? 'patch -p1 < ppx_deriving-4.2.1.patch' : 'true'}"
     ],
     [
       "ocaml",
