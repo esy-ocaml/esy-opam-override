@@ -1,5 +1,7 @@
 const path = require("path");
 const fs = require("fs");
+const os = require("os");
+const crypto = require("crypto");
 const { execSync } = require("child_process");
 
 const getAllPackages = () => {
@@ -22,8 +24,66 @@ const getRelevantPackagesToTest = () => {
     return allPackages.filter((p) => changes.indexOf(p) >= 0);
 }
 
-console.log("Hello world");
+const mkdirTemp = (packageFolder) => {
+    const p = path.join(os.tmpdir(), crypto.randomBytes(8).toString("hex")); 
+    fs.mkdirSync(p);
+    return p;
+}
 
-console.dir(getRelevantPackagesToTest());
+const getNameAndVersionForPackage = (packageFolder) => {
+    let firstPeriod = packageFolder.indexOf(".");
+    let name = packageFolder.substring(0, firstPeriod);
+    let version = packageFolder.substring(firstPeriod+1, packageFolder.length);
 
-console.dir(getFilesInChange());
+    return {name, version};
+};
+
+const prefixPath = mkdirTemp("ESY__PREFIX");
+
+const testPackage = (packageFolder) => {
+    const pkgInfo = getNameAndVersionForPackage(packageFolder);
+    console.log(`** TESTING PACKAGE: ${pkgInfo.name}@${pkgInfo.version}`);
+
+    const testFolder = mkdirTemp(packageFolder);    
+    console.log("   - Package build folder: " + testFolder);
+    console.log("   - Prefix path: " + prefixPath);
+
+    const esy = (command) => {
+        return execSync(`esy ${command}`, {
+            cwd: testFolder,
+            env: {
+                ...process.env,
+                ESY__PREFIX: prefixPath,
+                ESYI__OPAM_OVERRIDE: __dirname,
+            }
+        });
+    };
+
+    fs.writeFileSync(
+        path.join(testFolder, "package.json"),
+        JSON.stringify({
+            name: "test-project",
+            version: "1.0.0",
+            esy: {
+                build: ["echo done!"]
+            },
+            dependencies: {
+                [`@opam/${pkgInfo.name}`]: `${pkgInfo.version}`
+            },
+            devDependencies: {
+                "ocaml": "~4.6.0",
+            }
+        })
+    );
+
+    esy("install");
+    esy("build");
+};
+
+const packagesToTest = getRelevantPackagesToTest();
+
+console.log(`** Detected ${packagesToTest.length} package to verify...`);
+
+packagesToTest.forEach((p) => testPackage(p));
+
+console.log("** Test run completed!");
