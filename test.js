@@ -17,6 +17,10 @@ const getFilesInChange = () => {
     return execSync("git diff --name-only 6 HEAD", {cwd: __dirname}).toString("utf8");
 };
 
+const getCurrentCommit = () => {
+    return execSync("git rev-parse HEAD", {cwd: __dirname}).toString("utf8").trim();
+};
+
 const getRelevantPackagesToTest = () => {
     const allPackages = getAllPackages();
     const changes = getFilesInChange();
@@ -41,12 +45,28 @@ const getNameAndVersionForPackage = (packageFolder) => {
 const prefixPath = mkdirTemp("ESY__PREFIX");
 const cachePath = mkdirTemp("ESYI__CACHE");
 
+// Currently, the esyi override is hardcoded to use the "6"
+// branch. We should make that overridable, but in the meantime,
+// we'll create a second repo that has the branch setup.
+const createOverrideRepository = () => {
+    const overridePath = mkdirTemp("OPAM_OVERRIDE");
+    const currentCommit = getCurrentCommit();
+    // Create a clone in the override path...
+    execSync(`git clone ${__dirname} ${overridePath}`);
+    // And force the '6' branch to point to the current commit
+    execSync("git checkout 6", {cwd: overridePath});
+    execSync(`git reset --hard ${currentCommit}`, {cwd: overridePath});
+    return overridePath;
+};
+
 const testPackage = (packageFolder) => {
     const pkgInfo = getNameAndVersionForPackage(packageFolder);
     console.log(`** TESTING PACKAGE: ${pkgInfo.name}@${pkgInfo.version}`);
 
     const testFolder = mkdirTemp(packageFolder);    
+    const overridePath = createOverrideRepository();
     console.log("   - Package build folder: " + testFolder);
+    console.log("   - Override repo: " + overridePath);
     console.log("   - Prefix path: " + prefixPath);
     console.log("   - Cache path: " + cachePath);
 
@@ -56,7 +76,7 @@ const testPackage = (packageFolder) => {
             env: {
                 ...process.env,
                 ESY__PREFIX: prefixPath,
-                ESYI__OPAM_OVERRIDE: __dirname,
+                ESYI__OPAM_OVERRIDE: overridePath,
                 ESYI__CACHE: cachePath,
             }
         });
