@@ -3,7 +3,7 @@
     [
       "bash",
       "-c",
-      "#{os == 'windows' ? 'patch -p1 < _esy/menhir-20170712.patch' : 'true'}"
+      "#{os == 'windows' ? 'patch -p1 < menhir-20170712.patch' : 'true'}"
     ],
     [
       "make",

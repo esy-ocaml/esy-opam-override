@@ -3,7 +3,7 @@
     [
       "bash",
       "-c",
-      "#{os == 'windows' ? 'patch -p1 < _esy/base-v0.11.1.patch' : 'true'}"
+      "#{os == 'windows' ? 'patch -p1 < base-v0.11.1.patch' : 'true'}"
     ],
     [
       "jbuilder",
