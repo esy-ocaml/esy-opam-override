@@ -9,7 +9,7 @@
        | Some '\n'         -> ()
        | Some _            -> first_line_has_stuff (i + 1)
      and first_line_has_stuff i =
-@@ -52,7 +52,7 @@
+@@ -52,11 +52,11 @@
      and rest_must_be_empty i =
        match get i with
        | None -> ()
@@ -18,3 +18,8 @@
          rest_must_be_empty (i + 1)
        | Some _  ->
          Location.raise_errorf ~loc:body_loc
+-          "Multi-line expectations must start with an empty line"
++          "Multi-line2 expectations must start with an empty line"
+     in
+     if not is_exact then first_line 0;
+     res
