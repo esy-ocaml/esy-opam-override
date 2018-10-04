@@ -1,0 +1,16 @@
+--- ./src/cmly_write.ml
++++ ./src/cmly_write.ml
+@@ -167,7 +167,12 @@
+   output_string oc magic;
+   output_value oc (t : grammar)
+ 
++let open_out_helper f =
++   match Sys.win32 with
++   | true -> open_out_bin f
++   | false -> open_out f
++
+ let write filename =
+-  let oc = open_out filename in
++  let oc = open_out_helper filename in
+   write oc (encode());
+   close_out oc
