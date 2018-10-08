@@ -4,8 +4,10 @@ const os = require("os");
 const crypto = require("crypto");
 const { execSync } = require("child_process");
 
+const isWindows = os.platform() == "win32";
+
 const getAllPackages = () => {
-    const packageDir = path.join(__dirname, "packages");   
+    const packageDir = path.join(__dirname, "packages");
 
     const getDirectories = (root) => fs.readdirSync(root);
 
@@ -26,6 +28,14 @@ const getRelevantPackagesToTest = () => {
     const changes = getFilesInChange();
 
     return allPackages.filter((p) => changes.indexOf(p) >= 0);
+}
+
+const windowsToCygwinPath = (p) => {
+    if (!isWindows) {
+        return p;
+    } else {
+        return execSync(`cygpath ${p}`).toString("utf8").trim();
+    }
 }
 
 const mkdirTemp = (packageFolder) => {
@@ -75,9 +85,9 @@ const testPackage = (packageFolder) => {
             cwd: testFolder,
             env: {
                 ...process.env,
-                ESY__PREFIX: prefixPath,
-                ESYI__OPAM_OVERRIDE: overridePath,
-                ESYI__CACHE: cachePath,
+                ESY__PREFIX: toCygwinPath(prefixPath),
+                ESYI__OPAM_OVERRIDE: toCygwinPath(overridePath),
+                ESYI__CACHE: toCygwinPath(cachePath),
             }
         });
     };
