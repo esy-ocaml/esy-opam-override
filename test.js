@@ -66,6 +66,9 @@ const createOverrideRepository = () => {
     // And force the '6' branch to point to the current commit
     execSync("git checkout 6", {cwd: overridePath});
     execSync(`git reset --hard ${currentCommit}`, {cwd: overridePath});
+
+    // Remove the remotes, since our current logic has issues parsing the path on Windows
+    execSync("git remote remove origin", { cwd: overridePath});
     return overridePath;
 };
 
@@ -86,7 +89,7 @@ const testPackage = (packageFolder) => {
             env: {
                 ...process.env,
                 ESY__PREFIX: prefixPath,
-                ESYI__OPAM_OVERRIDE: windowsToCygwinPath(overridePath),
+                ESYI__OPAM_OVERRIDE: overridePath,
                 ESYI__CACHE: cachePath,
             }
         });
