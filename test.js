@@ -85,9 +85,9 @@ const testPackage = (packageFolder) => {
             cwd: testFolder,
             env: {
                 ...process.env,
-                ESY__PREFIX: toCygwinPath(prefixPath),
-                ESYI__OPAM_OVERRIDE: toCygwinPath(overridePath),
-                ESYI__CACHE: toCygwinPath(cachePath),
+                ESY__PREFIX: prefixPath,
+                ESYI__OPAM_OVERRIDE: windowsToCygwinPath(overridePath),
+                ESYI__CACHE: cachePath,
             }
         });
     };
