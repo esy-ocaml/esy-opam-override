@@ -4,10 +4,8 @@ const os = require("os");
 const crypto = require("crypto");
 const { execSync } = require("child_process");
 
-const isWindows = os.platform() == "win32";
-
 const getAllPackages = () => {
-    const packageDir = path.join(__dirname, "packages");
+    const packageDir = path.join(__dirname, "packages");   
 
     const getDirectories = (root) => fs.readdirSync(root);
 
@@ -30,22 +28,8 @@ const getRelevantPackagesToTest = () => {
     return allPackages.filter((p) => changes.indexOf(p) >= 0);
 }
 
-const windowsToCygwinPath = (p) => {
-    if (!isWindows) {
-        return p;
-    } else {
-        return execSync(`cygpath ${p}`).toString("utf8").trim();
-    }
-}
-
 const mkdirTemp = (packageFolder) => {
-    // TODO: Clean this up
-    const rootTemp = path.join("C:", "temp_root");
-    if (!fs.existsSync(rootTemp)) {
-        fs.mkdirSync(rootTemp);
-    }
-
-    const p = path.join("C:", "temp_root", packageFolder + crypto.randomBytes(16).toString("hex")); 
+    const p = path.join(os.tmpdir(), packageFolder + crypto.randomBytes(4).toString("hex")); 
     fs.mkdirSync(p);
     return p;
 }
@@ -72,9 +56,6 @@ const createOverrideRepository = () => {
     // And force the '6' branch to point to the current commit
     execSync("git checkout 6", {cwd: overridePath});
     execSync(`git reset --hard ${currentCommit}`, {cwd: overridePath});
-
-    // Remove the remotes, since our current logic has issues parsing the path on Windows
-    execSync("git remote remove origin", { cwd: overridePath});
     return overridePath;
 };
 
@@ -95,7 +76,7 @@ const testPackage = (packageFolder) => {
             env: {
                 ...process.env,
                 ESY__PREFIX: prefixPath,
-                ESYI__OPAM_OVERRIDE: windowsToCygwinPath(overridePath),
+                ESYI__OPAM_OVERRIDE: ":" + overridePath,
                 ESYI__CACHE: cachePath,
             }
         });
