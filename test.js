@@ -39,6 +39,10 @@ const windowsToCygwinPath = (p) => {
 }
 
 const mkdirTemp = (packageFolder) => {
+    // TODO: Clean this up
+    const rootTemp = path.join("C:", "temp_root");
+    fs.mkdirSync(rootTemp);
+
     const p = path.join("C:", "temp_root", packageFolder + crypto.randomBytes(16).toString("hex")); 
     fs.mkdirSync(p);
     return p;
