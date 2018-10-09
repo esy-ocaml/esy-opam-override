@@ -35,7 +35,6 @@ const mkdirTemp = (packageFolder) => {
     if (!fs.existsSync(tempFolder)) {
         fs.mkdirSync(tempFolder);
     }
-    console.log(" - Using temp folder: " + tempFolder);
 
     const p = path.join(tempFolder, packageFolder + crypto.randomBytes(4).toString("hex")); 
     fs.mkdirSync(p);
