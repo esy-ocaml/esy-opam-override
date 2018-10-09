@@ -56,6 +56,10 @@
     "OCAML_TOPLEVEL_PATH": {
       "val": "#{self.toplevel}",
       "scope": "global"
+    },
+    "ANOTHER_ENV_VARIABLE_THAT_SHOULD_BE_GREEN": {
+      "val": "#{self.toplevel}",
+      "scope": "global"
     }
   }
 }
