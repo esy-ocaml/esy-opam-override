@@ -32,7 +32,9 @@ const mkdirTemp = (packageFolder) => {
     // For AppVeyor, use a root-level folder - the permissions
     // in the temp folder are problematic
     const tempFolder = os.platform() === "win32" ? "C:/esy-temp" : os.tmpdir();
-    fs.mkdirSync(tempFolder);
+    if (!fs.existsSync(tempFolder)) {
+        fs.mkdirSync(tempFolder);
+    }
     console.log(" - Using temp folder: " + tempFolder);
 
     const p = path.join(os.tmpdir(), packageFolder + crypto.randomBytes(4).toString("hex")); 
