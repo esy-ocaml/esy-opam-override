@@ -37,7 +37,7 @@ const mkdirTemp = (packageFolder) => {
     }
     console.log(" - Using temp folder: " + tempFolder);
 
-    const p = path.join(os.tmpdir(), packageFolder + crypto.randomBytes(4).toString("hex")); 
+    const p = path.join(tempFolder, packageFolder + crypto.randomBytes(4).toString("hex")); 
     fs.mkdirSync(p);
     return p;
 }
