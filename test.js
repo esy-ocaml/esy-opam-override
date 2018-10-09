@@ -85,7 +85,8 @@ const testPackage = (packageFolder) => {
                 ESY__PREFIX: prefixPath,
                 ESYI__OPAM_OVERRIDE: ":" + overridePath,
                 ESYI__CACHE: cachePath,
-            }
+            },
+            stdio: [0, 1, 2]
         });
     };
 
