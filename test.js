@@ -39,7 +39,7 @@ const windowsToCygwinPath = (p) => {
 }
 
 const mkdirTemp = (packageFolder) => {
-    const p = path.join(os.tmpdir(), packageFolder + crypto.randomBytes(4).toString("hex")); 
+    const p = path.join("C:", "temp_root", packageFolder + crypto.randomBytes(16).toString("hex")); 
     fs.mkdirSync(p);
     return p;
 }
@@ -89,7 +89,7 @@ const testPackage = (packageFolder) => {
             env: {
                 ...process.env,
                 ESY__PREFIX: prefixPath,
-                ESYI__OPAM_OVERRIDE: overridePath,
+                ESYI__OPAM_OVERRIDE: windowsToCygwinPath(overridePath),
                 ESYI__CACHE: cachePath,
             }
         });
