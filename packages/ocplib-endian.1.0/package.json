@@ -15,7 +15,7 @@
       "setup.ml",
       "-configure",
       "--disable-debug",
-      "-prefix",
+      "--prefix",
       "#{self.install}"
     ],
     [
