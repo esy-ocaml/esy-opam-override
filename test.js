@@ -29,7 +29,14 @@ const getRelevantPackagesToTest = () => {
 }
 
 const mkdirTemp = (packageFolder) => {
-    const p = path.join(os.tmpdir(), packageFolder + crypto.randomBytes(4).toString("hex")); 
+    // For AppVeyor, use a root-level folder - the permissions
+    // in the temp folder are problematic
+    const tempFolder = os.platform() === "win32" ? "C:/esy-temp" : os.tmpdir();
+    if (!fs.existsSync(tempFolder)) {
+        fs.mkdirSync(tempFolder);
+    }
+
+    const p = path.join(tempFolder, packageFolder + crypto.randomBytes(4).toString("hex")); 
     fs.mkdirSync(p);
     return p;
 }
@@ -76,9 +83,10 @@ const testPackage = (packageFolder) => {
             env: {
                 ...process.env,
                 ESY__PREFIX: prefixPath,
-                ESYI__OPAM_OVERRIDE: overridePath,
+                ESYI__OPAM_OVERRIDE: ":" + overridePath,
                 ESYI__CACHE: cachePath,
-            }
+            },
+            stdio: [0, 1, 2]
         });
     };
 
