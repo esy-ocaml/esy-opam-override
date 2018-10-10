@@ -1,5 +1,5 @@
---- setup.ml
-+++ setup.ml
+--- ./setup.ml
++++ ./setup.ml
 @@ -6331,9 +6331,7 @@
            [
              "-classic-display";
