@@ -1,0 +1,26 @@
+{
+  "build": [
+    [
+      "bash",
+      "-c",
+      "#{os == 'windows' ? 'patch -p1 < camlp5-rel706.patch' : 'true'}"
+    ],
+    [
+      "./configure",
+      "--prefix",
+      "#{self.install}",
+      "-libdir",
+      "#{self.lib}",
+      "-mandir",
+      "#{self.man}"
+    ],
+    [
+      "make",
+      "world.opt"
+    ],
+    [
+      "make",
+      "install"
+    ]
+  ]
+}
