@@ -6,6 +6,6 @@
     }
   },
   "dependencies": {
-    "@esy-ocaml/libffi": "esy-ocaml/libffi#esy"
+    "@esy-ocaml/libffi": "3.2.10"
   }
 }
