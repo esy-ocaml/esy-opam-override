@@ -1,0 +1,6 @@
+# Get node
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '8.9'
