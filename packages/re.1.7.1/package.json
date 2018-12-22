@@ -3,7 +3,7 @@
     [
       "bash",
       "-c",
-      "#{os == 'windows' ? 'patch -p1 < patch-oasis-re.1.7.1-BREAK STUFF' : 'true'}"
+      "#{os == 'windows' ? 'patch -p1 < patch-oasis-re.1.7.1' : 'true'}"
     ],
     [
       "ocaml",
