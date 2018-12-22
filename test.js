@@ -61,7 +61,7 @@ const createOverrideRepository = () => {
     // Create a clone in the override path...
     execSync(`git clone ${__dirname} ${overridePath}`);
     // And force the '6' branch to point to the current commit
-    execSync("git checkout 6", {cwd: overridePath});
+    execSync("git checkout origin/6", {cwd: overridePath});
     execSync(`git reset --hard ${currentCommit}`, {cwd: overridePath});
     return overridePath;
 };
