@@ -4,8 +4,6 @@ jobs:
   pool:
     vmImage: 'Ubuntu 16.04'
   steps:
-  - script: git remote -v
-  - script: get branch -a
   - template: .ci/use-node.yml
   - template: .ci/run-validation-test.yml
 
