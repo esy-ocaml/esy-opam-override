@@ -14,7 +14,7 @@ const getAllPackages = () => {
 };
 
 const getFilesInChange = () => {
-    return execSync("git diff --name-only 6 HEAD", {cwd: __dirname}).toString("utf8");
+    return execSync("git diff --name-only origin/6 HEAD", {cwd: __dirname}).toString("utf8");
 };
 
 const getCurrentCommit = () => {
