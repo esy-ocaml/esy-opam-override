@@ -14,7 +14,7 @@ const getAllPackages = () => {
 };
 
 const getFilesInChange = () => {
-    return execSync("git diff --name-only 6 HEAD", {cwd: __dirname}).toString("utf8");
+    return execSync("git diff --name-only origin/6 HEAD", {cwd: __dirname}).toString("utf8");
 };
 
 const getCurrentCommit = () => {
@@ -61,7 +61,7 @@ const createOverrideRepository = () => {
     // Create a clone in the override path...
     execSync(`git clone ${__dirname} ${overridePath}`);
     // And force the '6' branch to point to the current commit
-    execSync("git checkout 6", {cwd: overridePath});
+    execSync("git checkout -b 6", {cwd: overridePath});
     execSync(`git reset --hard ${currentCommit}`, {cwd: overridePath});
     return overridePath;
 };
