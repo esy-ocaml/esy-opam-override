@@ -19,7 +19,7 @@
        pstr_desc = Pstr_eval ({
            pexp_loc = Location.none;
 -          pexp_desc = Pexp_constant (CONST_STRING (msg, None));
-+          pexp_desc = Pexp_constant (Parsetree.Pconst_string (msg, None));
++          pexp_desc = Pexp_constant (Asttypes.Const_string (msg, None));
            pexp_attributes = [];
          }, []);
      }]
@@ -28,7 +28,7 @@
      | PStr [{
          pstr_desc = Pstr_eval ({
 -            pexp_desc = Pexp_constant (CONST_STRING (msg, _));
-+            pexp_desc = Pexp_constant (Parsetree.Pconst_string (msg, _));
++            pexp_desc = Pexp_constant (Asttypes.Const_string (msg, _));
            }, _);
        }] -> msg
      | _ -> "Warning: extension produced an incorrect syntax-error node"
