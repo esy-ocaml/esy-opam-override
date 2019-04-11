@@ -3,7 +3,7 @@
     [
       "bash",
       "-c",
-      "#{os == 'windows' ? 'patch -p1 < merlin-extend-winfix' : 'echo '}#{ocaml.version == '4.2.3007' ? '-4.2.3007' : ''}"
+      "#{os == 'windows' ? 'patch -p1 < merlin-extend-winfix-' : 'echo '}#{ocaml.version}"
     ],
     [
       "make"
