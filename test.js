@@ -43,10 +43,14 @@ const mkdirTemp = (packageFolder) => {
 
 const getNameAndVersionForPackage = (packageFolder) => {
     let firstPeriod = packageFolder.indexOf(".");
-    let name = packageFolder.substring(0, firstPeriod);
-    let version = packageFolder.substring(firstPeriod+1, packageFolder.length);
+    if (firstPeriod === -1) {
+        return {name: packageFolder, version: '*'};
+    } else {
+        let name = packageFolder.substring(0, firstPeriod);
+        let version = packageFolder.substring(firstPeriod+1, packageFolder.length);
 
-    return {name, version};
+        return {name, version};
+    }
 };
 
 const prefixPath = mkdirTemp("ESY__PREFIX");
