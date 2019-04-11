@@ -43,10 +43,14 @@ const mkdirTemp = (packageFolder) => {
 
 const getNameAndVersionForPackage = (packageFolder) => {
     let firstPeriod = packageFolder.indexOf(".");
-    let name = packageFolder.substring(0, firstPeriod);
-    let version = packageFolder.substring(firstPeriod+1, packageFolder.length);
+    if (firstPeriod === -1) {
+        return {name: packageFolder, version: '*'};
+    } else {
+        let name = packageFolder.substring(0, firstPeriod);
+        let version = packageFolder.substring(firstPeriod+1, packageFolder.length);
 
-    return {name, version};
+        return {name, version};
+    }
 };
 
 const prefixPath = mkdirTemp("ESY__PREFIX");
@@ -68,7 +72,7 @@ const createOverrideRepository = () => {
 
 const testPackage = (packageFolder) => {
     const pkgInfo = getNameAndVersionForPackage(packageFolder);
-    console.log(`** TESTING PACKAGE: ${pkgInfo.name}@${pkgInfo.version}`);
+    console.log(`** TESTING PACKAGE: ${pkgInfo.name}@${pkgInfo.version} from folder:${packageFolder}`);
 
     const testFolder = mkdirTemp(packageFolder);    
     const overridePath = createOverrideRepository();

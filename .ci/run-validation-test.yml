@@ -1,7 +1,7 @@
 # Run tests
 
 steps:
-    - script: npm install -g esy@0.4.7
-      displayName: 'Install esy@0.4.7'
+    - script: npm install -g esy@0.5.6
+      displayName: 'Install esy@0.5.6'
     - script: node test.js
       displayName: 'Run tests'
