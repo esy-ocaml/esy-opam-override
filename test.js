@@ -68,7 +68,7 @@ const createOverrideRepository = () => {
 
 const testPackage = (packageFolder) => {
     const pkgInfo = getNameAndVersionForPackage(packageFolder);
-    console.log(`** TESTING PACKAGE: ${pkgInfo.name}@${pkgInfo.version}`);
+    console.log(`** TESTING PACKAGE: ${pkgInfo.name}@${pkgInfo.version} from folder:${packageFolder}`);
 
     const testFolder = mkdirTemp(packageFolder);    
     const overridePath = createOverrideRepository();
