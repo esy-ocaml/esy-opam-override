@@ -1,0 +1,30 @@
+{
+  "build": [
+    [
+      "./configure",
+      "-configdir",
+      "#{self.lib}/coq/config",
+      "-prefix",
+      "#{self.install}",
+      "-mandir",
+      "#{self.man}",
+      "-docdir",
+      "#{self.doc}",
+      "-libdir",
+      "#{self.lib}/coq",
+      "-datadir",
+      "#{self.share}/coq",
+      "-coqide",
+      "no"
+    ],
+    [
+      "make",
+      "-j2"
+    ],
+    [
+      "make",
+      "-j2",
+      "byte"
+    ]
+  ]
+}
