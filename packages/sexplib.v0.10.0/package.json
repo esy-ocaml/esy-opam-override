@@ -1,7 +1,8 @@
 {
   "build": [
     [
-      "sh",
+      "bash",
+      "-c",
       "#{os == 'windows' ? './winconfigure' : 'true' }"
     ],
     [
