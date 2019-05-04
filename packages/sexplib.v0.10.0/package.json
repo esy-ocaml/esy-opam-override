@@ -1,5 +1,6 @@
 {
   "build": [
+    "#{os == 'windows' ? 'dos2unix ./winconfigure' : 'bash -c true'}",
     [
       "bash",
       "-c",
