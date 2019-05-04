@@ -3,7 +3,7 @@
     [
       "bash",
       "-c",
-      "#{os == 'windows' ? 'winconfigure' : 'true' }"
+      "#{os == 'windows' ? './winconfigure' : 'true' }"
     ],
     [
       "jbuilder",
