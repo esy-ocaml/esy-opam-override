@@ -14,7 +14,7 @@
     [
       "use-exe.sh",
       "#{os}",
-      "#{self.target  / 'ppx_deriving.install'}"
+      "#{self.target_dir  / 'ppx_deriving.install'}"
     ]
   ]
 }
