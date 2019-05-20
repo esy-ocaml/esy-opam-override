@@ -12,7 +12,9 @@
       "native-dynlink=true"
     ],
     [
-      "use-exe.sh",
+      "bash",
+      "-c",
+      "./use-exe.sh",
       "#{os}",
       "#{self.target_dir  / 'ppx_deriving.install'}"
     ]
