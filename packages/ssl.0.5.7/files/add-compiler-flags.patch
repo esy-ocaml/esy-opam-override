@@ -1,0 +1,46 @@
+From a6c18eb36677a9e7c22a58fd4ed4d6ebe371f984 Mon Sep 17 00:00:00 2001
+From: Ulrik Strid <ulrik.strid@outlook.com>
+Date: Wed, 22 May 2019 20:11:51 +0200
+Subject: [PATCH] Check for CFLAGS and LDFLAGS in discover.ml
+
+---
+ src/config/discover.ml | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
+
+diff --git a/src/config/discover.ml b/src/config/discover.ml
+index c85cbff..92f05e5 100644
+--- a/src/config/discover.ml
++++ b/src/config/discover.ml
+@@ -4,18 +4,26 @@ let directory_exists fsp =
+   Sys.file_exists fsp && Sys.is_directory fsp
+ 
+ let default c : C.Pkg_config.package_conf =
++  let cflags = match Sys.getenv_opt "CFLAGS" with
++  | Some cflags -> [ cflags ]
++  | None -> []
++  in
++  let libs = match Sys.getenv_opt "LDFLAGS" with
++  | Some libs -> [ libs ]
++  | None -> []
++  in
+   if C.ocaml_config_var_exn c "system" = "macosx" then
+     if directory_exists "/usr/local/opt/openssl" then
+-      { libs = ["-L/usr/local/opt/openssl/lib"]
+-      ; cflags = ["-I/usr/local/opt/openssl/include"]
++      { libs = ["-L/usr/local/opt/openssl/lib"] @ libs
++      ; cflags = ["-I/usr/local/opt/openssl/include"] @ cflags
+       }
+     else
+-      { libs = ["-L/opt/local/lib"]
+-      ; cflags = ["-I/opt/local/include"]
++      { libs = ["-L/opt/local/lib"] @ libs
++      ; cflags = ["-I/opt/local/include"] @ cflags
+       }
+   else
+-    { libs   = ["-lssl"; "-lcrypto"]
+-    ; cflags = []
++    { libs   = ["-lssl"; "-lcrypto"] @ libs
++    ; cflags = cflags
+     }
+ 
+ let prog fun_name =

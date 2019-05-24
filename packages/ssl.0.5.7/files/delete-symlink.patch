@@ -1,0 +1,19 @@
+From 5921900c41523b6d7c700278f598831109a0d855 Mon Sep 17 00:00:00 2001
+From: Ulrik Strid <ulrik.strid@outlook.com>
+Date: Tue, 22 Jan 2019 10:00:51 +0100
+Subject: [PATCH] Delete opam
+
+This helps Windows support
+---
+ opam | 1 -
+ 1 file changed, 1 deletion(-)
+ delete mode 120000 opam
+
+diff --git a/opam b/opam
+deleted file mode 120000
+index 8f66d15..0000000
+--- a/opam
++++ /dev/null
+@@ -1 +0,0 @@
+-ssl.opam
+\ No newline at end of file
