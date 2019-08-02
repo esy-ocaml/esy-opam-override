@@ -27,5 +27,8 @@
       "-c",
       "(opam-installer --prefix=$cur__install || true)"
     ]
-  ]
+  ],
+  "resolutions": {
+    "@opam/ocamlbuild": "github:ocaml/ocamlbuild:ocamlbuild.opam#1ff8b03"
+  }
 }
