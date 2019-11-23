@@ -1,0 +1,20 @@
+{
+  "build": [
+    [
+      "ocaml",
+      "bootstrap.ml",
+      "-j",
+      "4"
+    ],
+    [
+      "./dune.exe",
+      "build",
+      "-p",
+      "dune",
+      "--profile",
+      "dune-bootstrap",
+      "-j",
+      "4"
+    ]
+  ]
+}
