@@ -20,7 +20,7 @@ packages
 
 ## Esy override specification
 
-Each `package.json` should contain a single JSON object whuch conforms to the
+Each `package.json` should contain a single JSON object which conforms to the
 type `OpamOverride` described below:
 
 ```
