@@ -2,21 +2,21 @@ name: $(Build.SourceVersion)
 jobs:
 - job: Linux
   pool:
-    vmImage: 'Ubuntu 16.04'
+    vmImage: ubuntu-latest
   steps:
   - template: .ci/use-node.yml
   - template: .ci/run-validation-test.yml
 
 - job: MacOS
   pool:
-    vmImage: 'macOS 10.13'
+    vmImage: macOS-latest
   steps:
   - template: .ci/use-node.yml
   - template: .ci/run-validation-test.yml
 
 - job: Windows
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: windows-latest
   steps:
   - template: .ci/use-node.yml
   - template: .ci/run-validation-test.yml
