@@ -1,5 +1,5 @@
 {
-  "build": [],
+  "build": ["which", "autoconf"],
   "dependencies": {
     "esy-autoconf": "esy-packages/esy-autoconf#fb93edf"
   }
