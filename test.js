@@ -73,7 +73,12 @@ const createOverrideRepository = () => {
 const testPackage = (packageFolder) => {
     const pkgInfo = getNameAndVersionForPackage(packageFolder);
     console.log(`** TESTING PACKAGE: ${pkgInfo.name}@${pkgInfo.version} from folder:${packageFolder}`);
-
+    let ocamlVersion;
+    if (packageFolder == "coq.8.6") {
+        ocamlVersion = "~4.2.x";
+    } else {
+        ocamlVersion =  "~4.6.0";
+    }
     const testFolder = mkdirTemp(packageFolder);    
     const overridePath = createOverrideRepository();
     console.log("   - Package build folder: " + testFolder);
@@ -106,7 +111,7 @@ const testPackage = (packageFolder) => {
                 [`@opam/${pkgInfo.name}`]: `${pkgInfo.version}`
             },
             devDependencies: {
-                "ocaml": "~4.6.0",
+                "ocaml": ocamlVersion,
             }
         })
     );
