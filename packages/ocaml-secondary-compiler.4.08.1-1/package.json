@@ -4,7 +4,7 @@
 	    "env",
 	    "-u",
 	    "OCAMLLIB",
-	    "./esy-configure",
+	    "bash", "./esy-configure",
 	    "--disable-cfi",
 	    "--prefix", "$cur__install/share",
 	    "--libdir", "$cur__install/share/lib",
@@ -18,7 +18,7 @@
 	    "env",
 	    "-u",
 	    "OCAMLLIB",
-	    "./esy-build"
+	    "bash", "./esy-build"
 	]
     ],
     "buildsInSource": true
