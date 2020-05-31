@@ -1,6 +1,9 @@
 {
     "build": [
 	[
+	    "env",
+	    "-u",
+	    "OCAMLLIB",
 	    "./esy-configure",
 	    "--disable-cfi",
 	    "--prefix", "$cur__install/share",
@@ -11,7 +14,12 @@
 	    "--disable-instrumented-runtime",
 	    "--disable-graph-lib"
 	],
-      "./esy-build"
+	[
+	    "env",
+	    "-u",
+	    "OCAMLLIB",
+	    "./esy-build"
+	]
     ],
     "buildsInSource": true
 }
