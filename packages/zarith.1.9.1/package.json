@@ -5,7 +5,7 @@
       "-c",
       "#{os == 'windows' ? 'patch -p1 < Zarith-release-1.9.1.patch' : 'true' }"
     ],
-    "./configure",
+    "#{os == 'windows' ? 'env CC=x86_64-w64-mingw32-gcc ': ''}./configure",
     "make"
   ],
   "install": [
