@@ -1,6 +1,6 @@
 {
   "build": "true",
   "dependencies": {
-    "esy-openssl": "esy-packages/esy-m4#3c6a2669e7c76d3b63eb876921adec3935b9d7f2"
+    "esy-m4": "esy-packages/esy-m4#3c6a2669e7c76d3b63eb876921adec3935b9d7f2"
   }
 }
