@@ -1,0 +1,12 @@
+{
+  "build": [
+    ["sh", "-c", "patch -p1 < pkg-config.patch"],
+    ["dune", "build", "-p", "mirage-solo5"]
+  ],
+  "exportedEnv": {
+    "PKG_CONFIG_PATH": {
+      "val": "#{self.lib / 'pkgconfig' }:$PKG_CONFIG_PATH",
+      "scope": "global"
+    }
+  }
+}
