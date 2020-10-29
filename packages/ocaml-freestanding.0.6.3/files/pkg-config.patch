@@ -1,0 +1,34 @@
+diff --git a/Makefile b/Makefile
+index b07b8c6..0702cca 100644
+--- a/Makefile
++++ b/Makefile
+@@ -73,7 +73,7 @@ flags/libs.tmp: flags/libs.tmp.in
+ 	opam config subst $@
+ 
+ flags/libs: flags/libs.tmp Makeconf
+-	env PKG_CONFIG_PATH="$(shell opam config var prefix)/lib/pkgconfig" \
++	# env PKG_CONFIG_PATH="$(shell opam config var prefix)/lib/pkgconfig"
+ 	    pkg-config $(PKG_CONFIG_DEPS) --libs >> $<
+ 	awk -v RS= -- '{ \
+ 	    sub("@@PKG_CONFIG_EXTRA_LIBS@@", "$(PKG_CONFIG_EXTRA_LIBS)", $$0); \
+@@ -84,7 +84,7 @@ flags/cflags.tmp: flags/cflags.tmp.in
+ 	opam config subst $@
+ 
+ flags/cflags: flags/cflags.tmp Makeconf
+-	env PKG_CONFIG_PATH="$(shell opam config var prefix)/lib/pkgconfig" \
++	# env PKG_CONFIG_PATH="$(shell opam config var prefix)/lib/pkgconfig" 
+ 	    pkg-config $(PKG_CONFIG_DEPS) --cflags >> $<
+ 	awk -v RS= -- '{ \
+ 	    print "(", $$0, ")" \
+diff --git a/configure.sh b/configure.sh
+index 4d154ed..55d4b43 100755
+--- a/configure.sh
++++ b/configure.sh
+@@ -1,6 +1,6 @@
+ #!/bin/sh
+ 
+-export PKG_CONFIG_PATH=$(opam config var prefix)/lib/pkgconfig
++# export PKG_CONFIG_PATH=$(opam config var prefix)/lib/pkgconfig
+ pkg_exists() {
+     pkg-config --exists "$@"
+ }
