@@ -27,3 +27,17 @@ case "$(uname -s)" in
         ./configure "$@"
         ;;
 esac
+
+# fix related to -fcommon on GCC 10 on Linux
+if [ "$(uname)" == 'Linux' ]; then
+    VERSION_NEEDED_TO_PATCH="10"
+
+    CC_CONFIG=$(cat Makefile.config | awk -F= '{ if ($1 == "CC") { print $2 } }')
+    CC=$(echo $CC_CONFIG | awk '{ print $1 }')
+
+    MAJOR_VERSION=$($CC -dumpversion | awk -F. '{ print $1 }' )
+
+    if [ $MAJOR_VERSION -ge $VERSION_NEEDED_TO_PATCH ]; then
+        echo 'OC_CFLAGS:=$(OC_FLAGS) -fcommon' >> Makefile.config
+    fi
+fi
