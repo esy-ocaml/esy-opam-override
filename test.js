@@ -5,7 +5,7 @@ const crypto = require("crypto");
 const { execSync } = require("child_process");
 
 const platformSpecificPackages = {
-    linux: ["mirage-solo5", "solo5-bindings-hvt"],
+    linux: ["mirage-solo5", "solo5-bindings-hvt", "conf-libseccomp"],
     darwin: [],
     win32: [],
     cygwin: [],
