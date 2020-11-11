@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#! /bin/bash
 
 # esy-configure
 #
@@ -18,26 +18,32 @@ set -e
 set -o pipefail
 
 case "$(uname -s)" in
+    Darwin)
+        echo "[esy-configure] Detected OSX, patching for Xcode 12"
+        sed -ib -e "s/opts=\"\"/opts=\"-Wno-implicit-function-declaration\"/" config/auto-aux/hasgot;;
+    *)
+        true;;
+esac
+
+case "$(uname -s)" in
     CYGWIN*|MINGW32*|MSYS*)
         echo "[esy-configure] Detected windows environment..."
         ./configure-windows "$@"
         ;;
+    Linux)
+        echo "[esy-configure] Detected Linux environment"
+	VERSION_NEEDED_TO_PATCH="10"
+	set +e # because on platforms that use clang, it's okay if the following statement fails
+	MAJOR_VERSION=$(gcc -dumpversion | awk -F. '{ print $1 }' )
+	if [ $MAJOR_VERSION -ge $VERSION_NEEDED_TO_PATCH ]; then
+	  ./configure "$@" -cc "gcc -fcommon"
+	else
+	  ./configure "$@"
+	fi
+	set -e
+	;;
     *)
-        echo "[esy-configure] Detected OSX / Linux environment"
-        ./configure "$@"
-        ;;
+        echo "[esy-configure] Detected non-Linux (most likely MacOS) environment"
+	./configure "$@"
+	;;
 esac
-
-# fix related to -fcommon on GCC 10 on Linux
-if [ "$(uname)" == 'Linux' ]; then
-    VERSION_NEEDED_TO_PATCH="10"
-
-    CC_CONFIG=$(cat Makefile.config | awk -F= '{ if ($1 == "CC") { print $2 } }')
-    CC=$(echo $CC_CONFIG | awk '{ print $1 }')
-
-    MAJOR_VERSION=$($CC -dumpversion | awk -F. '{ print $1 }' )
-
-    if [ $MAJOR_VERSION -ge $VERSION_NEEDED_TO_PATCH ]; then
-        echo 'OC_CFLAGS:=$(OC_FLAGS) -fcommon' >> Makefile.config
-    fi
-fi
