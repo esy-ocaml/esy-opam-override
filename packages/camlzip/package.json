@@ -1,4 +1,8 @@
 {
+  "build": [
+    "make -j1 ZLIB_I_OPT=\"-ccopt '$CFLAGS'\" ZLIB_L_OPT=$LDFLAGS all",
+    "make -j1 ZLIB_I_OPT=\"-ccopt '$CFLAGS'\" ZLIB_L_OPT=$LDFLAGS allopt"
+  ],
   "exportedEnv": {
     "CAML_LD_LIBRARY_PATH": {
       "val": "#{self.lib / 'zip' : $CAML_LD_LIBRARY_PATH}",
