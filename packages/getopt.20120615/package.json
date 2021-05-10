@@ -1,0 +1,12 @@
+{
+	"build": [
+    [
+      "bash",
+      "-c",
+		  "#{os == 'windows' ? 'patch -p1 < patch-getopt-20120615' : 'true' }"
+	  ],
+	  ["ocaml", "setup.ml", "-configure", "--prefix", "$cur__install"],
+    ["ocaml", "setup.ml", "-build"],
+    ["ocaml", "setup.ml", "-doc"]
+	]
+}
