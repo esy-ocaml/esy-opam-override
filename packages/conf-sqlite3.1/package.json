@@ -1,6 +1,6 @@
 {
   "build": "true",
   "dependencies": {
-    "esy-sqlite": "ManasJayanth/esy-sqlite"
+    "esy-sqlite": "ManasJayanth/esy-sqlite:esy.json#28dfc73a8eda790213a8359ad708231069ed7079"
   }
 }
