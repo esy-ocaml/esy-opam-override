@@ -1,6 +1,8 @@
 {
   "build": [
     [
+      "bash",
+      "-c",
       "#{os == 'windows' ? 'patch -p1 -i patch-getopt-20120615' : 'true' }"
     ],
     [
