@@ -1,0 +1,26 @@
+From f971fa0c13f8765710ec53283661b26462a62a50 Mon Sep 17 00:00:00 2001
+From: Manas <3097018+ManasJayanth@users.noreply.github.com>
+Date: Wed, 29 Dec 2021 23:54:26 +0530
+Subject: [PATCH] Disable -pthread for Windows
+
+... as flexlink doesn't recognise it
+---
+ src/unix/dune | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/unix/dune b/src/unix/dune
+index f2d5cc3..9f77b2e 100644
+--- a/src/unix/dune
++++ b/src/unix/dune
+@@ -8,7 +8,7 @@
+  (instrumentation (backend bisect_ppx))
+  (private_modules Rustc_bls12_381_stubs Rustc_bls12_381_bindings)
+  (libraries zarith ctypes ctypes.foreign bls12-381-gen bls12-381)
+- (library_flags :standard -linkall -ccopt -pthread)
++ (library_flags :standard -linkall)
+  (foreign_stubs
+   (language c)
+   (names rustc_bls12_381_ctypes_c_stubs)
+-- 
+2.19.0.windows.1
+

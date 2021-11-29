@@ -1,0 +1,27 @@
+{
+  "buildsInSource": "_build",
+  "build": [
+    ["bash", "-c", "#{os == 'windows' ? 'patch -p1 < 0001-Disable-pthread-for-Windows.patch': 'true'}"],
+    [
+      "dune",
+      "build",
+      "-j",
+      "4",
+      "-p",
+      "bls12-381-unix",
+      "@install"
+    ]
+  ],
+  "install": [
+    [
+      "esy-installer",
+      "bls12-381-unix.install"
+    ]
+  ],
+  "buildEnvOverride": {
+    "OPAM_SWITCH_PREFIX": "#{ @opam/tezos-rust-libs.install }"
+  },
+  "dependencies": {
+    "@opam/tezos-rust-libs": "1.1"
+  }
+}
