@@ -5,6 +5,6 @@
       "-c",
       "#{os == 'windows' ? 'patch -p1 < winpatch.patch' : 'true' }"
     ],
-    "dune build -p core -j 4"
+    "dune build -p linenoise -j 4"
   ]
 }
