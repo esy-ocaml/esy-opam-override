@@ -2,6 +2,11 @@
   "buildsInSource": "_build",
   "build": [
     [
+      "bash",
+      "-c",
+      "#{os == 'windows' ? 'patch -p1 < winpatch.patch' : 'true' }"
+    ],
+    [
       "dune",
       "build",
       "-j",
