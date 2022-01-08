@@ -1,0 +1,18 @@
+{
+    "build": [
+      [
+        "bash",
+        "-c",
+        "patch -p1 < 0001-Disable-Unix-APIs-on-Windows.patch"
+      ],
+      [
+        "dune",
+        "build",
+        "-p",
+        "time_now",
+        "-j",
+        "4"
+      ]
+    ]
+  }
+  
