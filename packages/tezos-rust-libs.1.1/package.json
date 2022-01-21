@@ -5,6 +5,8 @@
       "-c",
       "#{os == 'windows' ? 'patch -p1 < winpatch.patch' : 'true' }"
     ],
-    "dune build -p linenoise -j 4"
+    "mkdir .cargo",
+    "mv cargo-config .cargo/config",
+    "cargo build --verbose --target-dir target --release"
   ]
 }
