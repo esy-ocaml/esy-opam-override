@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "esy-libev": "*",
+    "ocaml": "*"
+  }
+}
