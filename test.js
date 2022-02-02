@@ -106,7 +106,7 @@ const testPackage = (packageFolder) => {
                 [`@opam/${pkgInfo.name}`]: `${pkgInfo.version}`
             },
             devDependencies: {
-                "ocaml": "~4.9.0",
+                "ocaml": "*",
             }
         })
     );
