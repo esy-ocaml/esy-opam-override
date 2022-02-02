@@ -1,4 +1,9 @@
 {
+  "buildEnv": {
+    "LIBRARY_PATH": "#{esy-libev.lib}",
+    "C_INCLUDE_PATH": "#{esy-libev.install / 'include'}"
+  },
+  "build": "true",
   "dependencies": {
     "esy-libev": "*",
     "ocaml": "*"
