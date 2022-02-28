@@ -1,0 +1,11 @@
+{
+  "build": [
+    [
+      "bash",
+      "-c",
+      "patch -p1 < patch.patch"
+    ],
+    "make all"
+  ],
+  "install": "make install"
+}
