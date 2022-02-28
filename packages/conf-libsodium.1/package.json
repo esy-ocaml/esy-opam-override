@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "esy-libsodium": "*"
+  },
+  "exportedEnv": {
+    "SODIUM_LIB_DIR": {
+      "scope": "global",
+      "val": "#{esy-libsodium.lib}"
+    },
+    "SODIUM_INCLUDE_DIR": {
+      "scope": "global",
+      "val": "#{esy-libsodium.install / 'include'}"
+    }
+  }
+}
