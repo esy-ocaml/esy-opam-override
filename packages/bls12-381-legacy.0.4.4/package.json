@@ -1,5 +1,4 @@
 {
-  
   "buildsInSource": "_build",
   "build": [
     [
@@ -7,7 +6,21 @@
       "-c",
       "#{os == 'windows' ? 'patch -p1 < winpatch.patch' : 'true' }"
     ],
-    ["dune", "build", "-j", "4", "-p", "bls12-381-legacy", "@install"]
+    [
+      "dune",
+      "build",
+      "-j",
+      "4",
+      "-p",
+      "bls12-381-legacy",
+      "@install"
+    ]
+  ],
+  "install": [
+    [
+      "esy-installer",
+      "bls12-381-legacy.install"
+    ]
   ],
   "buildEnvOverride": {
     "OPAM_SWITCH_PREFIX": "#{ @opam/tezos-rust-libs.install }"
@@ -15,11 +28,11 @@
   "dependencies": {
     "@opam/conf-rust": "*",
     "@opam/dune": "*",
-    "@opam/ff-sig": "*",
-    "@opam/zarith": "*",
-    "@opam/ctypes": "*",
+    "@opam/ff-sig": ">=0.6.1  < 0.7.0",
+    "@opam/zarith": ">= 1.10  < 2.0",
+    "@opam/ctypes": ">= 0.18.0  < 0.19.0",
     "@opam/ctypes-foreign": "*",
-    "@opam/bls12-381-gen": "*",
-    "@opam/tezos-rust-libs": "*"
+    "@opam/bls12-381-gen": "0.4.3",
+    "@opam/tezos-rust-libs": "1.1"
   }
 }

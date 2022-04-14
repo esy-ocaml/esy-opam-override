@@ -1,0 +1,9 @@
+{
+  "buildEnv": {},
+  "build": [
+    "bash -c 'patch -p1 < esy.patch'",
+    "bash -c 'patch -p1 < esy2.patch'",
+    "make"
+  ],
+  "install": "make PREFIX=#{self.install} install"
+}

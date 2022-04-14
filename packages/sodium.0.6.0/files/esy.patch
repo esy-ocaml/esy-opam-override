@@ -1,0 +1,31 @@
+--- ./myocamlbuild.ml	2017-04-12 21:54:23.000000000 +0530
++++ ./myocamlbuild.ml	2022-02-28 16:17:16.000000000 +0530
+@@ -3,6 +3,8 @@
+ 
+ let ctypes_libdir = Sys.getenv "CTYPES_LIB_DIR" in
+ let ocaml_libdir = Sys.getenv "OCAML_LIB_DIR" in
++let sodium_libdir = Sys.getenv "SODIUM_LIB_DIR" in
++let sodium_include_dir = Sys.getenv "SODIUM_INCLUDE_DIR" in
+ 
+ dispatch begin
+   function
+@@ -15,6 +17,8 @@
+          Cmd (S[A"cc";
+                 A("-I"); A ctypes_libdir;
+                 A("-I"); A ocaml_libdir;
++                A("-I"); A sodium_include_dir;
++                A("-L"); A sodium_libdir;
+                 A"-o";
+                 A(env "lib_gen/%_types_detect");
+                 A(env "lib_gen/%_types_detect.c");
+@@ -47,8 +51,8 @@
+     copy_rule "cstubs: lib_gen/x_bindings.ml -> lib/x_bindings.ml"
+       "lib_gen/%_bindings.ml" "lib/%_bindings.ml";
+ 
+-    flag ["c"; "compile"] & S[A"-ccopt"; A"-I/usr/local/include"];
+-    flag ["c"; "ocamlmklib"] & A"-L/usr/local/lib";
++    flag ["c"; "compile"] & S[A"-ccopt"; A"-I/usr/local/include"; A"-I"; A sodium_include_dir];
++    flag ["c"; "ocamlmklib"] & S[A"-L/usr/local/lib"; A("-L"); A sodium_libdir];
+     flag ["ocaml"; "link"; "native"; "program"] &
+       S[A"-cclib"; A"-L/usr/local/lib"];
+ 
