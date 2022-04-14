@@ -1,4 +1,4 @@
-From 470de0c9a421f6008544dfa84e23d096c4c8c314 Mon Sep 17 00:00:00 2001
+From bd2ab983471f32d49746fed2df1a07d9f896f214 Mon Sep 17 00:00:00 2001
 From: Manas Jayanth <3097018+ManasJayanth@users.noreply.github.com>
 Date: Sat, 8 Jan 2022 22:05:33 +0530
 Subject: [PATCH] Disable Unix APIs on Windows
@@ -8,7 +8,7 @@ Subject: [PATCH] Disable Unix APIs on Windows
  1 file changed, 11 insertions(+)
 
 diff --git a/src/time_now_stubs.c b/src/time_now_stubs.c
-index e08d72c..e8b5a0e 100644
+index e08d72c..2963385 100644
 --- a/src/time_now_stubs.c
 +++ b/src/time_now_stubs.c
 @@ -5,6 +5,15 @@
@@ -19,7 +19,7 @@ index e08d72c..e8b5a0e 100644
 +#if (defined(WIN32) || defined(_WIN32))
 +CAMLprim value time_now_nanoseconds_since_unix_epoch_or_zero()
 +{
-+  caml_failwith("time_now_nanoseconds_since_unix_epoch_or_zero not implemented for win32");
++  caml_failwith("not implemented for win32");
 +  return Val_unit;
 +}
 +#else
