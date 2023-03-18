@@ -1,0 +1,14 @@
+--- ./Makefile
++++ ./Makefile
+@@ -20,8 +20,8 @@
+ 
+ _build/lib/dllsodium.so:
+ 	mkdir -p $$(dirname $@)
+-	$(CC) -shared -lsodium -o $@
++	$(CC) -shared -L $(SODIUM_LIB_DIR) -lsodium -o $@
+ 
+ _build/%: %.c
+ 	mkdir -p $$(dirname $@)
+-	$(CC) -Wall -g -lsodium -o $@ $^
++	$(CC) -Wall -g -L $(SODIUM_LIB_DIR) -lsodium -o $@ $^
+
