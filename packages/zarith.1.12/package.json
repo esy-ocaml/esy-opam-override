@@ -14,6 +14,6 @@
   },
   "dependencies": {
     "ocaml": "*",
-    "esy-gmp": "*"
+    "esy-gmp": "esy-packages/esy-gmp#e27cb300adfb0c0b320c273082c5affafcd225fa"
   }
 }
