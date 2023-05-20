@@ -1,0 +1,11 @@
+{
+  "buildEnv": {
+    "PATH": "#{ os == 'windows' ? '/usr/x86_64-w64-mingw32/sys-root/mingw/bin:$PATH' : '$PATH'}"
+  },
+  "build": [
+    "bash -c '#{os == 'windows' ? 'patch -p1 < ./windows-makefile-enable-windows-target.patch': 'true'}'",
+    "bash -c '#{os == 'windows' ? 'patch -p1 < ./windows-cmake-set-default-only-if-empty.patch': 'true'}'",
+    "make -C hacl-star-raw build-c",
+    "make #{os == 'windows' ? 'CC=x86_64-w64-mingw32-gcc': ''} -C hacl-star-raw build-bindings"
+  ]
+}

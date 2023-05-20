@@ -1,0 +1,21 @@
+--- ./hacl-star-raw/Makefile
++++ ./hacl-star-raw/Makefile
+@@ -28,7 +28,8 @@
+   OCAML_SO	= so
+   CFLAGS	+= -fPIC
+ else ifeq ($(OS),Windows_NT)
+-  $(error "Windows is not supported at the moment.")
++  SO 		= dll
++  OCAML_SO	= dll
+ else ifeq ($(UNAME),FreeBSD)
+   SO 		= so
+   OCAML_SO	= so
+@@ -48,7 +49,7 @@
+ # Note that cmake 3.10 does not support -B to output build files to a different
+ # directory. Hence the other way of calling it here.
+ build-c:
+-	cd build && cmake -G"Unix Makefiles" -DCMAKE_BUILD_TYPE=Release ../
++	cd build && cmake --toolchain=../mingw-cross.cmake -G"Unix Makefiles" -DCMAKE_BUILD_TYPE=Release ../
+ 	make -C build
+ 	cp build/$(C_LIB) .
+ 	cp build/$(C_DYN_LIB) .
