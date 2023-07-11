@@ -1,0 +1,40 @@
+{
+  "exportedEnv": {
+    "COQLIB": {
+      "val": "#{self.lib / 'coq'}",
+      "scope": "global"
+    }
+  },
+  "build": [
+    [
+      "bash",
+      "-c",
+      "#{os == 'windows' ? 'patch -p1 < winpatch.patch' : 'true'}"
+    ],
+    [
+      "./configure",
+      "-prefix",
+      "#{self.install}",
+      "-mandir",
+      "#{self.man}",
+      "-libdir",
+      "#{self.lib}",
+      "-native-compiler",
+      "no"
+    ],
+    [
+      "make",
+      "dunestrap",
+      "COQ_DUNE_EXTRA_OPT=-split"
+    ],
+    [
+      "dune",
+      "build",
+      "-p",
+      "coq-stdlib",
+      "-j",
+      "4",
+      "@install"
+    ]
+  ]
+}

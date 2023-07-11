@@ -1,0 +1,29 @@
+{
+  "build": [
+    [
+      "bash",
+      "-c",
+      "#{os == 'windows' ? 'patch -p1 < winpatch.patch' : 'true'}"
+    ],
+    [
+      "./configure",
+      "-prefix",
+      "#{self.install}",
+      "-mandir",
+      "#{self.man}",
+      "-libdir",
+      "#{self.lib}/coq",
+      "-native-compiler",
+      "no"
+    ],
+    [
+      "dune",
+      "build",
+      "-p",
+      "coq-core",
+      "-j",
+      "4",
+      "@install"
+    ]
+  ]
+}
