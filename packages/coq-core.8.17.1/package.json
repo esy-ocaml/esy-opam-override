@@ -1,4 +1,10 @@
 {
+  "exportedEnv": {
+    "COQCORELIB": {
+      "val": "#{self.lib / 'coq-core'}",
+      "scope": "global"
+    }
+  },
   "build": [
     [
       "bash",
