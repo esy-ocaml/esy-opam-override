@@ -1,0 +1,120 @@
+From e2a052ba3aafa579a3cef7e064c6a7f93968d6d4 Mon Sep 17 00:00:00 2001
+From: John Doe <john@doe.com>
+Date: Thu, 13 Jul 2023 22:33:31 +0530
+Subject: [PATCH 3/5] HACK: C/: -> C:
+
+---
+ boot/bootstrap.ml               |  2 +-
+ boot/dune                       |  2 +-
+ boot/duneboot.ml                |  6 ++++++
+ boot/libs.ml                    |  2 +-
+ src/dune_rules/coq/coq_rules.ml | 11 ++++++++++-
+ src/dune_rules/dune             |  1 +
+ 6 files changed, 20 insertions(+), 4 deletions(-)
+
+diff --git a/boot/bootstrap.ml b/boot/bootstrap.ml
+index d9b7f92..de2e70a 100644
+--- a/boot/bootstrap.ml
++++ b/boot/bootstrap.ml
+@@ -87,7 +87,7 @@ let () =
+       (compiler, Some "--secondary")
+   in
+   exit_if_non_zero
+-    (runf "%s %s -w -24 -g -o %s -I boot %sunix.cma %s" compiler
++    (runf "%s %s -w -24 -g -o %s -I boot %sunix.cma str.cma %s" compiler
+        (* Make sure to produce a self-contained binary as dlls tend to cause
+           issues *)
+        (if v < (4, 10, 1) then "-custom" else "-output-complete-exe")
+diff --git a/boot/dune b/boot/dune
+index afb777f..82b4d24 100644
+--- a/boot/dune
++++ b/boot/dune
+@@ -10,7 +10,7 @@
+ (executable
+  (name duneboot)
+  (modules :standard \ configure bootstrap)
+- (libraries unix))
++ (libraries str unix))
+ 
+ (executable
+  (name configure)
+diff --git a/boot/duneboot.ml b/boot/duneboot.ml
+index 247c392..45c3c6e 100644
+--- a/boot/duneboot.ml
++++ b/boot/duneboot.ml
+@@ -555,6 +555,8 @@ module Config : sig
+   val output_complete_obj_arg : string
+ 
+   val unix_library_flags : string list
++
++  val str_library_flags : string list
+ end = struct
+   let ocaml_version = Scanf.sscanf Sys.ocaml_version "%d.%d" (fun a b -> (a, b))
+ 
+@@ -618,6 +620,9 @@ end = struct
+ 
+   let unix_library_flags =
+     if ocaml_version >= (5, 0) then [ "-I"; "+unix" ] else []
++
++  let str_library_flags =
++    if ocaml_version >= (5, 0) then [ "-I"; "+str" ] else []
+ end
+ 
+ let insert_header fn ~header =
+@@ -979,6 +984,7 @@ let resolve_externals external_libraries =
+   let external_libraries, external_includes =
+     let convert = function
+       | "threads" -> ("threads" ^ Config.ocaml_archive_ext, [ "-I"; "+threads" ])
++      | "str" -> ("str" ^ Config.ocaml_archive_ext, Config.unix_library_flags)
+       | "unix" -> ("unix" ^ Config.ocaml_archive_ext, Config.unix_library_flags)
+       | s -> fatal "unhandled external library %s" s
+     in
+diff --git a/boot/libs.ml b/boot/libs.ml
+index 0980f10..e808e43 100644
+--- a/boot/libs.ml
++++ b/boot/libs.ml
+@@ -1,6 +1,6 @@
+ let executables = [ "main" ]
+ 
+-let external_libraries = [ "unix"; "threads" ]
++let external_libraries = [ "unix"; "threads"; "str" ]
+ 
+ let local_libraries =
+   [ ("otherlibs/ordering", Some "Ordering", false, None)
+diff --git a/src/dune_rules/coq/coq_rules.ml b/src/dune_rules/coq/coq_rules.ml
+index ed9ff1e..9b41ef7 100644
+--- a/src/dune_rules/coq/coq_rules.ml
++++ b/src/dune_rules/coq/coq_rules.ml
+@@ -393,7 +393,16 @@ let parse_line ~dir line =
+     let deps = String.extract_blank_separated_words deps in
+     (* Add prelude deps for when stdlib is in scope and we are not actually
+        compiling the prelude *)
+-    let deps = List.map ~f:(Path.relative (Path.build dir)) deps in
++    let f dep =
++      let dep = Str.global_replace (Str.regexp "[\\\\|/]:") ":" dep in
++      if Filename.is_relative dep then
++        Path.relative (Path.build dir) dep
++      else
++        dep
++        |> Str.global_replace (Str.regexp "/") "\\\\"
++        |> Path.of_string
++    in
++    let deps = List.map ~f deps in
+     (target, deps)
+ 
+ let get_dep_map ~dir ~wrapper_name : Path.t list Dep_map.t Action_builder.t =
+diff --git a/src/dune_rules/dune b/src/dune_rules/dune
+index c6f23af..0499657 100644
+--- a/src/dune_rules/dune
++++ b/src/dune_rules/dune
+@@ -3,6 +3,7 @@
+ (library
+  (name dune_rules)
+  (libraries
++  str
+   stdune
+   csexp
+   fiber
+-- 
+2.34.1.windows.1
+

@@ -1,0 +1,25 @@
+From b931612ee9ef6823311105038d999f84d6f0fba0 Mon Sep 17 00:00:00 2001
+From: John Doe <john@doe.com>
+Date: Fri, 14 Jul 2023 08:08:11 +0530
+Subject: [PATCH 4/5] --shared-libgcc only on Windows
+
+---
+ src/dune_rules/cxx_flags.ml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/dune_rules/cxx_flags.ml b/src/dune_rules/cxx_flags.ml
+index 92ef4eb..071f915 100644
+--- a/src/dune_rules/cxx_flags.ml
++++ b/src/dune_rules/cxx_flags.ml
+@@ -13,7 +13,7 @@ type ccomp_type =
+ let base_cxx_flags ~for_ cc =
+   match (cc, for_) with
+   | Gcc, Compile -> [ "-x"; "c++" ]
+-  | Gcc, Link -> [ "-lstdc++"; "-shared-libgcc" ]
++  | Gcc, Link -> [ "-lstdc++"] @ (if Sys.unix then ["-shared-libgcc"] else [])
+   | Clang, Compile -> [ "-x"; "c++" ]
+   | Clang, Link -> [ "-lc++" ]
+   | Msvc, Compile -> [ "/TP" ]
+-- 
+2.34.1.windows.1
+

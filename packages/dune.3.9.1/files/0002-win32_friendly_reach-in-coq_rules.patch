@@ -1,0 +1,25 @@
+From 002a32f7361bbc3b5bde2d591cfeb1319c890586 Mon Sep 17 00:00:00 2001
+From: John Doe <john@doe.com>
+Date: Tue, 11 Jul 2023 11:14:12 +0530
+Subject: [PATCH 2/5] win32_friendly_reach in coq_rules
+
+---
+ src/dune_rules/coq/coq_rules.ml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/dune_rules/coq/coq_rules.ml b/src/dune_rules/coq/coq_rules.ml
+index 292a158..ed9ff1e 100644
+--- a/src/dune_rules/coq/coq_rules.ml
++++ b/src/dune_rules/coq/coq_rules.ml
+@@ -828,7 +828,7 @@ let install_rules ~sctx ~dir s =
+       else coq_plugins_install_rules ~scope ~package ~dst_dir s
+     in
+     let wrapper_name = Coq_lib_name.wrapper name in
+-    let to_path f = Path.reach ~from:(Path.build dir) (Path.build f) in
++    let to_path f = Path.reach ~win32_friendly_reach:true ~from:(Path.build dir) (Path.build f) in
+     let to_dst f = Path.Local.to_string @@ Path.Local.relative dst_dir f in
+     let make_entry (orig_file : Path.Build.t) (dst_file : string) =
+       let entry =
+-- 
+2.34.1.windows.1
+

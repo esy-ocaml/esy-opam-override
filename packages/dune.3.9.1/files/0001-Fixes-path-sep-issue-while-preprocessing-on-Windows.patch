@@ -1,0 +1,108 @@
+From 9b9065e6363b2d137f81f1825352c02f82e7cdaa Mon Sep 17 00:00:00 2001
+From: John Doe <john@doe.com>
+Date: Sat, 8 Jul 2023 09:59:33 +0530
+Subject: [PATCH 1/5] Fixes path sep issue while preprocessing on Windows
+
+---
+ otherlibs/stdune/src/path.ml      | 15 ++++++++-------
+ otherlibs/stdune/src/path.mli     |  2 +-
+ otherlibs/stdune/src/path_intf.ml |  2 +-
+ src/dune_rules/preprocessing.ml   |  2 +-
+ 4 files changed, 11 insertions(+), 10 deletions(-)
+
+diff --git a/otherlibs/stdune/src/path.ml b/otherlibs/stdune/src/path.ml
+index e57649a..a727212 100644
+--- a/otherlibs/stdune/src/path.ml
++++ b/otherlibs/stdune/src/path.ml
+@@ -201,14 +201,15 @@ end = struct
+     let t_len = String.length t in
+     t_len > of_len && t.[of_len] = '/' && String.is_prefix t ~prefix:of_
+ 
+-  let reach t ~from =
++  let reach ?(win32_friendly_reach = false) t ~from =
+     let rec loop t from =
+       match (t, from) with
+       | a :: t, b :: from when a = b -> loop t from
+       | _ -> (
+         match List.fold_left from ~init:t ~f:(fun acc _ -> ".." :: acc) with
+         | [] -> "."
+-        | l -> String.concat l ~sep:"/")
++        | l -> let sep = if win32_friendly_reach && Sys.win32 then "\\" else "/" in
++               String.concat l ~sep)
+     in
+     loop (to_list t) (to_list from)
+ 
+@@ -302,7 +303,7 @@ module Local : sig
+ 
+   val is_descendant : t -> of_:t -> bool
+ 
+-  val reach : t -> from:t -> string
++  val reach : ?win32_friendly_reach:bool -> t -> from:t -> string
+ 
+   module L : sig
+     val relative : ?error_loc:Loc0.t -> t -> string list -> t
+@@ -860,18 +861,18 @@ let external_of_local x ~root =
+ let external_of_in_source_tree x =
+   external_of_local x ~root:(Lazy.force abs_root)
+ 
+-let reach t ~from =
++let reach ?(win32_friendly_reach = false) t ~from =
+   match (t, from) with
+   | External t, _ -> External.to_string t
+   | In_source_tree t, In_source_tree from | In_build_dir t, In_build_dir from ->
+-    Local.reach t ~from
++    Local.reach ~win32_friendly_reach t ~from
+   | In_source_tree t, In_build_dir from -> (
+     match Fdecl.get Build.build_dir with
+-    | In_source_dir b -> Local.reach t ~from:(Local.append b from)
++    | In_source_dir b -> Local.reach ~win32_friendly_reach t ~from:(Local.append b from)
+     | External _ -> external_of_in_source_tree t)
+   | In_build_dir t, In_source_tree from -> (
+     match Fdecl.get Build.build_dir with
+-    | In_source_dir b -> Local.reach (Local.append b t) ~from
++    | In_source_dir b -> Local.reach ~win32_friendly_reach (Local.append b t) ~from
+     | External b -> external_of_local t ~root:b)
+   | In_source_tree t, External _ -> external_of_in_source_tree t
+   | In_build_dir t, External _ -> (
+diff --git a/otherlibs/stdune/src/path.mli b/otherlibs/stdune/src/path.mli
+index bd8b91d..d689b5c 100644
+--- a/otherlibs/stdune/src/path.mli
++++ b/otherlibs/stdune/src/path.mli
+@@ -268,7 +268,7 @@ val pp : t -> _ Pp.t
+ (** Reach a given path [from] a directory. For example, let [p] be a path to the
+     file [some/dir/file] and [d] be a path to the directory [some/another/dir].
+     Then [reach p ~from:d] evaluates to [../../dir/file]. *)
+-val reach : t -> from:t -> string
++val reach : ?win32_friendly_reach:bool -> t -> from:t -> string
+ 
+ (** [from] defaults to [Path.root] *)
+ val reach_for_running : ?from:t -> t -> string
+diff --git a/otherlibs/stdune/src/path_intf.ml b/otherlibs/stdune/src/path_intf.ml
+index 29ac022..d2cf41b 100644
+--- a/otherlibs/stdune/src/path_intf.ml
++++ b/otherlibs/stdune/src/path_intf.ml
+@@ -137,7 +137,7 @@ module type Local_gen = sig
+ 
+   val descendant : 'w t -> of_:'w t -> Unspecified.w t option
+ 
+-  val reach : 'w t -> from:'w t -> string
++  val reach : ?win32_friendly_reach:bool -> 'w t -> from:'w t -> string
+ 
+   val split_first_component : 'w t -> (Filename.t * Unspecified.w t) option
+ 
+diff --git a/src/dune_rules/preprocessing.ml b/src/dune_rules/preprocessing.ml
+index 14c8361..e986cda 100644
+--- a/src/dune_rules/preprocessing.ml
++++ b/src/dune_rules/preprocessing.ml
+@@ -641,7 +641,7 @@ let pp_one_module sctx ~lib_name ~scope ~preprocessor_deps
+            let command =
+              List.map ~f:String.quote_for_shell
+                (List.concat
+-                  [ [ Path.reach (Path.build exe)
++                  [ [ Path.reach ~win32_friendly_reach: true (Path.build exe)
+                         ~from:
+                           (Path.build (Super_context.context sctx).build_dir)
+                     ]
+-- 
+2.34.1.windows.1
+

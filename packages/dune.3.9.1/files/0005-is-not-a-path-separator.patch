@@ -1,0 +1,25 @@
+From c994e27a62152aeb8632f9c2e2ac6c90fd54ab74 Mon Sep 17 00:00:00 2001
+From: John Doe <john@doe.com>
+Date: Fri, 14 Jul 2023 08:08:43 +0530
+Subject: [PATCH 5/5] : is not a path separator
+
+---
+ otherlibs/stdune/src/path.ml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/otherlibs/stdune/src/path.ml b/otherlibs/stdune/src/path.ml
+index a727212..62a0435 100644
+--- a/otherlibs/stdune/src/path.ml
++++ b/otherlibs/stdune/src/path.ml
+@@ -4,7 +4,7 @@ let basename_opt ~is_root ~basename t =
+   if is_root t then None else Some (basename t)
+ 
+ let is_dir_sep =
+-  if Sys.win32 || Sys.cygwin then fun c -> c = '/' || c = '\\' || c = ':'
++  if Sys.win32 || Sys.cygwin then fun c -> c = '/' || c = '\\'
+   else fun c -> c = '/'
+ 
+ let explode_path =
+-- 
+2.34.1.windows.1
+

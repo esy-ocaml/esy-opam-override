@@ -1,0 +1,45 @@
+{
+  "build": [
+    [
+      "bash",
+      "-c",
+      "patch --ignore-whitespace -p1 < 0001-Fixes-path-sep-issue-while-preprocessing-on-Windows.patch"
+    ],
+    [
+      "bash",
+      "-c",
+      "#{os == 'windows' ? 'patch -p1 < 0002-win32_friendly_reach-in-coq_rules.patch' : 'true'}"
+    ],
+    [
+      "bash",
+      "-c",
+      "#{os == 'windows' ? 'patch -p1 < 0003-HACK-C-C.patch' : 'true'}"
+    ],
+    [
+      "bash",
+      "-c",
+      "#{os == 'windows' ? 'patch -p1 < 0004-shared-libgcc-only-on-Windows.patch' : 'true'}"
+    ],
+    [
+      "bash",
+      "-c",
+      "#{os == 'windows' ? 'patch -p1 < 0005-is-not-a-path-separator.patch' : 'true'}"
+    ],
+    [
+      "ocaml",
+      "boot/bootstrap.ml",
+      "-j",
+      "8"
+    ],
+    [
+      "./_boot/dune.exe",
+      "build",
+      "dune.install",
+      "--release",
+      "--profile",
+      "dune-bootstrap",
+      "-j",
+      "8"
+    ]
+  ]
+}
