@@ -1,0 +1,18 @@
+--- ./hacl-star-raw/CMakeLists.txt
++++ ./hacl-star-raw/CMakeLists.txt
+@@ -22,13 +22,13 @@
+     cmake_policy(SET CMP0091 NEW)
+ 
+     # Avoid picking something that's not clang, unless the caller wants MSVC.
+-    if(NOT USE_MSVC)
++    if(NOT USE_MSVC AND NOT CMAKE_C_COMPILER)
+         SET(CMAKE_C_COMPILER clang)
+         SET(CMAKE_CXX_COMPILER clang++)
+     else()
+         SET(CMAKE_C_COMPILER cl)
+         SET(CMAKE_CXX_COMPILER cl)
+-    endif(NOT USE_MSVC)
++    endif(NOT USE_MSVC AND NOT CMAKE_C_COMPILER)
+ endif()
+ 
+ # Library version and name
