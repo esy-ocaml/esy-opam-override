@@ -1,0 +1,19 @@
+--- ./Makefile
++++ ./Makefile
+@@ -113,13 +113,13 @@
+           src/*ocplib-ocamlres-runtime.* \
+ 	  $(RUNLIB_CMI) $(RUNLIB_CMTI) $(RUNLIB_CMT) $(RUNLIB_MLI) $(RUNLIB_ML) \
+ 	  $(LIB_CMI) $(LIB_CMTI) $(LIB_CMT) $(LIB_MLI) $(LIB_ML)
+-	install ocp-ocamlres.asm $(BINDIR)/ocp-ocamlres
++	install ocp-ocamlres.asm $(BINDIR)/ocp-ocamlres$(EXE)
+ 	install ocp-ocamlres.byte $(BINDIR)/ocp-ocamlres.byte
+ 
+ uninstall:
+ 	ocamlfind remove -destdir $(LIBDIR) ocplib-ocamlres
+-	rm $(BINDIR)/ocp-ocamlres
++	rm $(BINDIR)/ocp-ocamlres$(EXE)
+ 	rm $(BINDIR)/ocp-ocamlres.byte
+ 
+ install-doc: doc
+ 	install -d $(DOCDIR)/ocp-ocamlres
+

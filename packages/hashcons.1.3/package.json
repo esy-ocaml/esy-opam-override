@@ -1,0 +1,14 @@
+{
+  "build": [
+    "bash -c 'patch -p1 < use-ocamlfind.patch'",
+    "autoconf",
+    [
+      "./configure",
+      "OCAMLFIND=$(which ocamlfind)"
+    ],
+    "make all"
+  ],
+  "dependencies": {
+    "esy-autoconf": "*"
+  }
+}

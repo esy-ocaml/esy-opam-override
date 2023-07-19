@@ -1,0 +1,15 @@
+{
+  "build": [
+    [
+      "bash",
+      "-c",
+      "#{os == 'windows' ? 'patch -p1 < winpatch.patch': 'true'}"
+    ],
+    "make EXE=#{os == 'windows' : '.exe': ''} all",
+    "make doc"
+  ],
+  "install": [
+    "make EXE=#{os == 'windows' ? '.exe': ''} BINDIR=#{self.bin} LIBDIR=#{self.lib} install",
+    "make DOCDIR=#{self.doc} install-doc"
+  ]
+}
