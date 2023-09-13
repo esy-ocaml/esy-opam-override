@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "esy-cmake": "grain-lang/CMake#91a2c3677bef84a6eb20318284dff9f3bf32719d"
+  }
+}
