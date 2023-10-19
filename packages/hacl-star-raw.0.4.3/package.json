@@ -1,0 +1,43 @@
+{
+  "exportedEnv": {
+    "DYLD_LIBRARY_PATH": {
+      "scope": "global",
+      "val": "#{self.lib / 'hacl-star-raw'}:$DYLD_LIBRARY_PATH"
+    },
+    "LD_LIBRARY_PATH": {
+      "scope": "global",
+      "val": "#{self.lib / 'hacl-star-raw'}:$LD_LIBRARY_PATH"
+    }
+  },
+  "buildEnv": {
+    "DYLD_LIBRARY_PATH": "#{@esy-ocaml/libffi.lib}:$DYLD_LIBRARY_PATH",
+    "LD_LIBRARY_PATH": "#{@esy-ocaml/libffi.lib}:$LD_LIBRARY_PATH"
+  },
+  "dependencies": {
+    "@opam/ctypes": "*",
+    "@opam/ctypes-foreign": "*",
+    "@opam/ocamlfind": "*",
+    "@esy-ocaml/libffi": "*"
+  },
+  "buildsInSource": true,
+  "build": [
+    [
+      "sh",
+      "-exc",
+      "cd raw && ./configure"
+    ],
+    [
+      "make",
+      "-C",
+      "raw"
+    ]
+  ],
+  "install": [
+    [
+      "make",
+      "-C",
+      "raw",
+      "install-hacl-star-raw"
+    ]
+  ]
+}
