@@ -4,6 +4,19 @@ const os = require("os");
 const crypto = require("crypto");
 const { execSync } = require("child_process");
 
+const platformSpecificPackages = {
+    linux: ["mirage-solo5", "solo5-bindings-hvt", "conf-libseccomp"],
+    darwin: [],
+    win32: [],
+    cygwin: [],
+};
+
+const getPackagesToExclude = () => {
+    const currentPlatform = platformSpecificPackages[process.platform];
+    return Object.values(platformSpecificPackages)
+        .reduce((acc, cur) => acc.concat(cur))
+        .filter((pkg) => !currentPlatform.includes(pkg));
+};
 const getAllPackages = () => {
     const packageDir = path.join(__dirname, "packages");   
 
@@ -24,8 +37,10 @@ const getCurrentCommit = () => {
 const getRelevantPackagesToTest = () => {
     const allPackages = getAllPackages();
     const changes = getFilesInChange();
-
-    return allPackages.filter((p) => changes.indexOf(p) >= 0);
+    const packagesToExclude = getPackagesToExclude();
+    return allPackages
+        .filter((p) => changes.indexOf(p) >= 0)
+        .filter((p) => !packagesToExclude.includes(p));
 }
 
 const mkdirTemp = (packageFolder) => {

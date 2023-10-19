@@ -1,0 +1,6 @@
+{
+  "build": "true",
+  "dependencies": {
+    "esy-libseccomp": "EduardoRFS/esy-libseccomp#668b4666b6cc71cb4ed40146cc8b0dc942e0be61"
+  }
+}
