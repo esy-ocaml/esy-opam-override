@@ -1,0 +1,17 @@
+{
+  "build": [
+    [
+      "bash",
+      "-c",
+      "patch -p1 < darwin.patch"
+    ],
+    [
+      "dune",
+      "build",
+      "-p",
+      "dune-configurator",
+      "-j",
+      "4"
+    ]
+  ]
+}
