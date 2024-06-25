@@ -1,0 +1,13 @@
+--- ./configure
++++ ./configure
+@@ -11,4 +11,6 @@
+     exit 1
+ fi
+ 
+-dune exec --root . -- $configure "$@"
++# dune exec --root . -- $configure "$@"
++dune build --root . ./tools/configure/configure.exe
++$PWD/_build/default/tools/configure/configure.exe "$@"
+\ No newline at end of file
+
+Diff finished.  Tue Jul 11 12:34:10 2023
