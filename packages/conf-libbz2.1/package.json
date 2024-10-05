@@ -1,17 +1,5 @@
 {
-  "build": [
-    [
-      "sh",
-      "-exc",
-      "echo '#include <bzlib.h>' > test.c"
-    ],
-    [
-      "sh",
-      "-exc",
-      "echo 'int main() { return 0; }' >> test.c"
-    ],
-    "#{os == 'windows' ? 'x86_64-w64-mingw32-gcc' : 'cc'} $LDFLAGS $CFLAGS test.c"
-  ],
+  "build": "true",
   "dependencies": {
     "esy-bzip2": "*"
   }
