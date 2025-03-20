@@ -9,6 +9,6 @@
   ],
   "dependencies": {
     "esy-gmp": "*",
-    "yarn-pkg-config": "*"
+    "esy-pkg-config": "*"
   }
 }
